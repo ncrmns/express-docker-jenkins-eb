@@ -41,6 +41,7 @@ pipeline {
 				branch 'master'
 			}
       steps {
+        sh 'mkdir dockerimage'
         sh 'docker save -o dockerimage/helloworld11.zip ncrmns/helloworld11:latest ncrmns/helloworld11:latest'
         withAWS(region:'us-east-1',credentials:'awsebcred') {
           s3Delete(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', path:'**/*')
