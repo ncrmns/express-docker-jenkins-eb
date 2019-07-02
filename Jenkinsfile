@@ -42,7 +42,6 @@ pipeline {
 			}
       steps {
         withAWS(region:'us-east-1',credentials:'awsebcred') {
-          s3Delete(bucket: 'helloworld11', path:'**/*')
           s3Upload(bucket: 'helloworld11', workingDir:'build', includePathPattern:'**/*');
 				}
 			}
