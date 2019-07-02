@@ -41,8 +41,10 @@ pipeline {
 				branch 'master'
 			}
       steps {
+        sh 'docker save -o dockerimage/helloworld11.zip ncrmns/helloworld11:latest ncrmns/helloworld11:latest'
         withAWS(region:'us-east-1',credentials:'awsebcred') {
-          s3Upload(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', workingDir:'./', includePathPattern:'**/*');
+          s3Delete(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', path:'**/*')
+          s3Upload(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', workingDir:'./dockerimage', includePathPattern:'**/*');
 				}
 			}
 		}
