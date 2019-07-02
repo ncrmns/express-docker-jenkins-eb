@@ -2,6 +2,7 @@ pipeline {
   environment {
     registry = "ncrmns/helloworld11"
     registryCredential = 'dockerhubncrmns'
+    dockerImage = ''
   }
   agent any
   stages {
@@ -19,7 +20,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
