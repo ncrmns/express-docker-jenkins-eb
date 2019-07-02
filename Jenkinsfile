@@ -47,6 +47,7 @@ pipeline {
           s3Delete(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', path:'**/*')
           s3Upload(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', workingDir:'./dockerimage', includePathPattern:'**/*');
 				}
+        echo 'complete'
 			}
 		}
   }
