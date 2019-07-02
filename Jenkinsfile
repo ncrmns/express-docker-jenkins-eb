@@ -42,7 +42,7 @@ pipeline {
 			}
       steps {
         withAWS(region:'us-east-1',credentials:'awsebcred') {
-          s3Upload(bucket: 'elasticbeanstalk-us-east-1-124429370407', workingDir:'./helloworld11', includePathPattern:'**/*');
+          s3Upload(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', workingDir:'./', includePathPattern:'**/*');
 				}
 			}
 		}
