@@ -42,7 +42,8 @@ pipeline {
 			}
 			steps {
 				script {
-          sh 'eb deploy'
+          sh 'eb init --region us-east-1 --platform docker helloworld11'
+          sh 'eb deploy helloworld11-dev'
 					}
 				}
 			}
