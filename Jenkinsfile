@@ -40,11 +40,10 @@ pipeline {
 			when {
 				branch 'master'
 			}
-			steps {
-				script {
-          sh 'eb init --region us-east-1 --platform docker helloworld11'
-          sh 'eb deploy helloworld11-dev'
-					}
+      steps {
+        withAWS(region:'us-east-1',credentials:'awsebcred') {
+          s3Delete(bucket: 'helloworld11', path:'**/*')
+          s3Upload(bucket: 'helloworld11', workingDir:'build', includePathPattern:'**/*');
 				}
 			}
 		}
