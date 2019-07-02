@@ -17,21 +17,32 @@ pipeline {
             echo 'Test complete'
         }
     }
-    stage('Building image') {
+    stage('Building DockerImage') {
       steps{
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-    stage ('Deploy') {
+    stage ('==>DockerHub') {
 			when {
-				branch 'dev'
+				branch 'master'
 			}
 			steps {
 				script {
 					docker.withRegistry( '', registryCredential ) {
 						dockerImage.push()
+					}
+				}
+			}
+		}
+    stage ('==>AWS') {
+			when {
+				branch 'master'
+			}
+			steps {
+				script {
+          sh 'eb deploy'
 					}
 				}
 			}
