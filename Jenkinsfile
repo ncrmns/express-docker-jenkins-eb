@@ -19,15 +19,21 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          docker.build registry
+          docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-    stage('Deploy'){
-        steps{
-          echo 'deploy'
-          echo 'done'
-        }
-    }
+    stage ('Deploy') {
+			when {
+				branch 'dev'
+			}
+			steps {
+				script {
+					docker.withRegistry( '', registryCredential ) {
+						dockerImage.push()
+					}
+				}
+			}
+		}
   }
 }
