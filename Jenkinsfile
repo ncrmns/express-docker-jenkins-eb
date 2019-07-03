@@ -41,11 +41,9 @@ pipeline {
 				branch 'master'
 			}
       steps {
-        sh 'cp -rf ./Dockerrun.aws.json ./AWS/Dockerrun.aws.json'
         withAWS(region:'us-east-1',credentials:'awsebcred') {
-          s3Upload(bucket: 'elasticbeanstalk-us-east-1-124429370407/helloworld11', workingDir:'./AWS', includePathPattern:'**/*');
-				}
-        echo 'complete'
+          sh 'sh ./deploy.sh'
+        }
 			}
 		}
   }
